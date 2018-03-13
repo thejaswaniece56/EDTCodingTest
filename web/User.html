@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>User Details</title>
+<link rel="stylesheet" type="text/css" href="include.css">
+</head>
+<body>
+<div id="form1">
+ <div class="form-title">First Name
+  <input class="input100" type="text" id="fname" name="usrFname"/> </div> <br>
+ <div class="form-title">Last Name
+  <input class="input100" type="text" id="lname" name="usrLname"/></div>
+ <br>
+ <div><button class="form-btn" type="button" onclick="loadNextForm()">Next</button></div>
+</div>
+<br>
+
+<div id="form2">
+ <div class="form-title">Age
+ <input type="text" class="input100" id="age" name="usrAge"> </div> <br>
+ <div class="form-title">Gender <br>
+ <input type="radio" name="usrGender" value="Male"/>Male
+ <input type="radio" name="usrGender" value="Female"/>Female
+ </div>
+ <br>
+<div><button class="form-btn" type="button" onclick="loadNextPage()">Save</button> </div>
+</div>
+
+<div id="pageDetail">
+<div class="txt1" id="userFname">FIRST NAME : </div><br>
+<div class="txt1" id="userLname">LAST NAME : </div><br>
+<div class="txt1" id="userAge">AGE : </div><br> 
+<div class="txt1" id="userGender">GENDER : </div>
+</div>
+
+</body>
+<script>
+
+window.onload = function() {
+	var form2 = document.getElementById("form2");
+    form2.style.display = "none";
+    var detail = document.getElementById("pageDetail");
+    detail.style.display = "none";
+
+}
+
+function loadNextForm() {
+	var fName = document.getElementById("fname").value;
+	var lName = document.getElementById("lname").value;
+	if (fName.length <= 0 || lName.length <= 0) {
+		alert("The first name or last name cannot be empty");
+		return;
+	}
+	if (!/^[a-zA-Z]*$/g.test(fName) || !/^[a-zA-Z]*$/g.test(lName)) {
+		alert("The first name or last name must contain only alphabets");
+		return;
+	}
+	
+	var form2 = document.getElementById("form2");
+    form2.style.display = "block";
+}
+
+function loadNextPage() {
+	var age = document.getElementById("age").value;
+	if(isNaN(age) || age < 1 || age > 100) {
+	  alert("The age must be a number between 1 and 100");
+	  return;
+	}
+	var genderSelection = document.querySelector('input[name="usrGender"]:checked');
+	if (genderSelection == null) {
+		alert("Please choose a gender");
+		return;
+	}
+	
+	document.getElementById("form1").style.display = "none";
+	document.getElementById("form2").style.display = "none";
+	document.getElementById("userFname").innerHTML += document.getElementById("fname").value;
+	document.getElementById("userLname").innerHTML += document.getElementById("lname").value;
+	document.getElementById("userAge").innerHTML += document.getElementById("age").value;
+	document.getElementById("userGender").innerHTML += document.querySelector('input[name="usrGender"]:checked').value;
+	var detail = document.getElementById("pageDetail");
+	detail.style.display = "block";
+	}
+
+</script>
+</html>
